@@ -1,6 +1,6 @@
 # Math Lab 1. Approximation of the first derivative
 ### Task
-The task is to calculate an error on step of 5 approximation methods for 5 given functions.
+The task is to calculate an error on step for 5 approximation methods of the first derivative of 5 given functions.
 
 ### Result
 ##### 1. f(x) = sin(x^2)
