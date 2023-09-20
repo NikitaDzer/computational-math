@@ -2,7 +2,9 @@
 
 #include <cstdio>
 #include <format>
+#include <string>
 #include <exception>
+#include <string_view>
 
 namespace visual
 {
@@ -209,7 +211,7 @@ GNUPlot::setOutputFile( std::string_view output_file_name,
                         uint32_t height) &
 {
     m_plot_file << std::format(
-        "set terminal {} size {} {}\n"
+        "set terminal {} size {} {} background rgb 'white'\n"
         "set output '{}.{}'\n",
         output_file_format, width, height,
         output_file_name, output_file_format

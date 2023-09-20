@@ -4,8 +4,11 @@
 #include "approximation.hh"
 
 #include <cmath>
-#include <cstdint>
 #include <format>
+#include <vector>
+#include <string>
+#include <cstdint>
+#include <string_view>
 
 namespace app
 {

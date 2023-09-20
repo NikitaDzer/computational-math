@@ -3,8 +3,7 @@
 #include "inputfn.hh"
 #include "approximation.hh"
 
-#include <vector>
-#include <iostream>
+#include <string>
 
 int 
 main()
@@ -61,4 +60,4 @@ main()
     );
 
     return 0;
-}
+} // main
