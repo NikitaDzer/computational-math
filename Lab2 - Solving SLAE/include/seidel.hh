@@ -12,33 +12,34 @@ namespace detail
 
 template <int M>
 Eigen::Matrix<double, M, M>
-calcJacobiR( const Eigen::Matrix<double, M, M>& L,
+calcSeidelR( const Eigen::Matrix<double, M, M>& L,
              const Eigen::Matrix<double, M, M>& D,
              const Eigen::Matrix<double, M, M>& U )
 {
-    return -D.inverse() * (L + U);
-} // calcJacobiR
+    return -(L + D).inverse() * U;
+} // calcSeidelR
 
 template <int M>
 Eigen::Vector<double, M>
-calcJacobiF( const Eigen::Matrix<double, M, M>& D,
+calcSeidelF( const Eigen::Matrix<double, M, M>& L,
+             const Eigen::Matrix<double, M, M>& D,
              const Eigen::Vector<double, M>& f )
 {
-    return D.inverse() * f;
-} // calcJacobiF
+    return (L + D).inverse() * f;
+} // calcSeidelF
 
 } // namespace detail
 
 template <int M>
 Eigen::Vector<double, M>
-solveSLAEJacobi( const Eigen::Matrix<double, M, M>& slae,
+solveSLAESeidel( const Eigen::Matrix<double, M, M>& slae,
                  const Eigen::Vector<double, M>& rhs,
                  int iterations )
 {
     auto [ L, D, U ] = utils::MatricesLDU{ slae };
 
-    Eigen::Matrix<double, M, M> R{ detail::calcJacobiR( L, D, U ) };
-    Eigen::Vector<double, M> F{ detail::calcJacobiF( D, rhs ) };
+    Eigen::Matrix<double, M, M> R{ detail::calcSeidelR( L, D, U ) };
+    Eigen::Vector<double, M> F{ detail::calcSeidelF( L, D, rhs ) };
 
     Eigen::Vector<double, M> uk{ F };
 
@@ -48,6 +49,6 @@ solveSLAEJacobi( const Eigen::Matrix<double, M, M>& slae,
     }
 
     return uk;
-} // solveSLAEJacobi
+} // solveSLAESeidel
 
 } // namespace slae

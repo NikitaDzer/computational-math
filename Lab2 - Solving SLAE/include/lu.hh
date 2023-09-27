@@ -1,15 +1,14 @@
 #pragma once
 
 #include "utils.hh"
+
 #include <Eigen/Dense>
-#include <iostream>
 
 namespace slae
 {
 
 namespace detail
 {
-
 
 template <int M>
 Eigen::Vector<double, M>

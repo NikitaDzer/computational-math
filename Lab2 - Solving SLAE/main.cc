@@ -1,15 +1,12 @@
-#include <glm/ext/matrix_float4x4.hpp>
-#include <glm/matrix.hpp>
-#include <string>
-#include <iostream>
-#include <glm/mat4x4.hpp>
-
-#include "include/gauss.hh"
 #include "include/jacobi.hh"
-#include "lu.hh"
+#include "include/seidel.hh"
+#include "include/gauss.hh"
+#include "include/lu.hh"
+
 #include <Eigen/Dense>
 
-using namespace Eigen;
+#include <iostream>
+
 
 int 
 main()
@@ -34,11 +31,14 @@ main()
     auto xjacobi = slae::solveSLAEJacobi( mat, vec, 100 );
     std::cout << xjacobi << std::endl;
 
-    auto xlu = slae::solveSLAELU( mat, vec );
-    std::cout << xlu << std::endl;
+    auto xseidel = slae::solveSLAESeidel( mat, vec, 100 );
+    std::cout << xseidel << std::endl;
 
     auto xgauss = slae::solveSLAEGauss( mat, vec );
     std::cout << xgauss << std::endl;
+
+    auto xlu = slae::solveSLAELU( mat, vec );
+    std::cout << xlu << std::endl;
 
     return 0;
 } // main
