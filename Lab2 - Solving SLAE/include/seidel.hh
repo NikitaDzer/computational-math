@@ -41,11 +41,11 @@ solveSLAESeidel( const Eigen::Matrix<double, M, M>& slae,
     Eigen::Matrix<double, M, M> R{ detail::calcSeidelR( L, D, U ) };
     Eigen::Vector<double, M> F{ detail::calcSeidelF( L, D, rhs ) };
 
-    Eigen::Vector<double, M> uk{ F };
+    Eigen::Vector<double, M> uk{ rhs };
 
     for ( int i = 0; i < iterations; i++ )
     {
-        uk = utils::calcIterativeMethodExpression( R, F, uk );
+        uk = R * uk + F;
     }
 
     return uk;

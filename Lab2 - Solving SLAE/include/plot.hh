@@ -1,9 +1,9 @@
 #pragma once
 
-#include <cstdint>
-#include <vector>
-#include <fstream>
 #include <string>
+#include <vector>
+#include <cstdint>
+#include <fstream>
 #include <string_view>
 
 namespace visual

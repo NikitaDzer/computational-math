@@ -1,44 +1,57 @@
-#include "include/jacobi.hh"
-#include "include/seidel.hh"
-#include "include/gauss.hh"
-#include "include/lu.hh"
+#include "app.hh"
+
+#include "relaxation.hh"
+#include "jacobi.hh"
+#include "seidel.hh"
+#include "gauss.hh"
+#include "lu.hh"
+
+#include "utils.hh"
 
 #include <Eigen/Dense>
 
-#include <iostream>
-
+#include <string>
+#include <cstdint>
 
 int 
 main()
 {
-    // constexpr int M = 4;
-    // Eigen::Matrix<double, 4, 4> mat{
-    //     { 3, 4, -9, 5 },
-    //     { -15, -12, 50, -16 },
-    //     { -27, -36, 73, 8 },
-    //     { 9, 12, -10, -16 }
-    // };
-    // Eigen::Vector<double, 4> vec{ -14, 44, 142, -76 };
+    constexpr uint32_t k_tests_number = 12;
+    std::string k_dir{ "assets/" };
 
-    constexpr int M = 3;
-    Eigen::Matrix<double, M, M> mat{
-        { 100, 30, -70 },
-        { 15, -50, -5 },
-        { 6, 2, 20 }
-    };
-    Eigen::Vector<double, M> vec{ 60, -40, 28 };
+    visual::GNUPlot plot{};
+    app::initIDPlot( plot, k_dir + "graph" );
 
-    auto xjacobi = slae::solveSLAEJacobi( mat, vec, 100 );
-    std::cout << xjacobi << std::endl;
+    auto [ slae, rhs ] = app::createSLAEEquation();
 
-    auto xseidel = slae::solveSLAESeidel( mat, vec, 100 );
-    std::cout << xseidel << std::endl;
+    app::drawIDPlot(
+        slae::solveSLAEJacobi<app::M>,
+        k_tests_number,
+        slae,
+        rhs,
+        plot,
+        "Jacobi"
+    );
 
-    auto xgauss = slae::solveSLAEGauss( mat, vec );
-    std::cout << xgauss << std::endl;
+    app::drawIDPlot(
+        slae::solveSLAESeidel<app::M>,
+        k_tests_number,
+        slae,
+        rhs,
+        plot,
+        "Seidel"
+    );
 
-    auto xlu = slae::solveSLAELU( mat, vec );
-    std::cout << xlu << std::endl;
+    app::drawIDPlot(
+        slae::solveSLAERelaxation<app::M>,
+        k_tests_number,
+        slae,
+        rhs,
+        plot,
+        "Relaxation"
+    );
+
+    plot.makePlot();
 
     return 0;
 } // main

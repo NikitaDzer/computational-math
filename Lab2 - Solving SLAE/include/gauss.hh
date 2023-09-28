@@ -2,7 +2,6 @@
 
 #include <Eigen/Dense>
 
-#include <cstdint>
 #include <cassert>
 #include <utility>
 

@@ -14,7 +14,7 @@ add_library(visual ${VISUAL_SOURCES})
 target_include_directories(visual PUBLIC include)
 target_compile_features(visual PUBLIC cxx_std_20)
 
-set(LAB2_SOURCES main.cc)
+set(LAB2_SOURCES main.cc src/app.cc )
 add_executable(lab2 ${LAB2_SOURCES})
 target_compile_features(lab2 PUBLIC cxx_std_20)
 target_include_directories(lab2 PUBLIC include)

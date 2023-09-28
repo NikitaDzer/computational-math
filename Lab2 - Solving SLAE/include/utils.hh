@@ -1,7 +1,8 @@
 #pragma once
 
 #include <Eigen/Dense>
-#include <iostream>
+
+#include <cmath>
 
 namespace slae::utils
 {
@@ -80,20 +81,38 @@ struct MatricesLDU
 
 template <int M>
 double
-calcSLAESolutionDiscrepancy( const Eigen::Matrix<double, M, M>& slae,
-                             const Eigen::Vector<double, M>& rhs,
-                             const Eigen::Vector<double, M>& root )
+calcSolutionDiscrepancy( const Eigen::Matrix<double, M, M>& slae,
+                         const Eigen::Vector<double, M>& rhs,
+                         const Eigen::Vector<double, M>& root )
 {
-    return 0;
-} // calcSLAEDiscrepancy
+    Eigen::Vector<double, M> vec_dicrepancy{ slae * root - rhs };
+    double discrepancy = 0.0;
+
+    for ( int i = 0; i < M; i++ )
+    {
+        discrepancy += std::abs( vec_dicrepancy( i ) );
+    }
+
+    return discrepancy;
+} // calcSolutionDiscrepancy
 
 template <int M>
 Eigen::Vector<double, M>
-calcIterativeMethodExpression( const Eigen::Matrix<double, M, M>& R,
-                               const Eigen::Vector<double, M>& F,
-                               const Eigen::Vector<double, M>& uk )
+solveSLAEWithIterativeMethod( const Eigen::Matrix<double, M, M>& slae,
+                              const Eigen::Matrix<double, M, M>& rhs,
+                              const Eigen::Matrix<double, M, M>& R,
+                              const Eigen::Vector<double, M>& F,
+                              const Eigen::Vector<double, M>& u0,
+                              double needed_discrepancy )
 {
-    return R * uk + F;
-} // calcIterativeMethodExpression
+    Eigen::Vector<double, M> uk{ u0 };
+
+    while ( calcSolutionDiscrepancy( slae, rhs, uk ) > needed_discrepancy )
+    {
+        uk = R * uk + F;
+    }
+
+    return uk;
+} // solveSLAEWithIterativeMethod
 
 } // namespace slae::utils
