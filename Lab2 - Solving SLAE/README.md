@@ -1,14 +1,14 @@
 # Math Lab 2. Direct and iterative methods for solving SLAE
 ### Task
-The task is to get acquainted with the methods for solving SLAE. It consists of 2 parts:
+The task is to get acquainted with the methods for solving SLAE. There are 2 parts of the task:
 * calculate discrepancy of [Gauss](https://en.wikipedia.org/wiki/Gaussian_elimination) and [LU-decomposition](https://en.wikipedia.org/wiki/LU_decomposition) methods
 * calculate discrepancy on iterations number of [Jacobi](https://en.wikipedia.org/wiki/Jacobi_method), [Seidel](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method) and [Relaxation](https://en.wikipedia.org/wiki/Successive_over-relaxation) iterative methods
 
-### Result
-##### 1. Gauss and LU-decomposition methods.
+### Results
+#### 1. Gauss and LU-decomposition methods.
 For a given matrix the discrepancy of two methods is ~0.
 
-##### 2. Iterative methods.
+#### 2. Iterative methods.
 ![Plot for iterative methods.](./assets/graph.svg)
 
 ### Conclusion
