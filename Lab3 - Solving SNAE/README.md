@@ -9,7 +9,7 @@ The task is consist of 2 parts:
 
 ##### SNAE
 sin(x) - y = 1.32; <br>
-cos(y) - x = 0.85;
+cos(y) - x = -0.85;
 
 ### Result
 ##### Newton's and iterative methods
