@@ -7,7 +7,7 @@
 namespace slae
 {
 
-constexpr double k_relaxation_param_optimal = 1.5;
+constexpr double k_relaxation_param = 1.5;
 
 namespace detail
 {
@@ -18,7 +18,7 @@ calcRelaxationR( const Eigen::Matrix<double, M, M>& L,
                  const Eigen::Matrix<double, M, M>& D,
                  const Eigen::Matrix<double, M, M>& U )
 {
-    constexpr double k_w = k_relaxation_param_optimal;
+    constexpr double k_w = k_relaxation_param;
     return -(D + k_w * L).inverse() * ((k_w - 1) * D + k_w * U);
 } // calcRelaxationR
 
@@ -28,7 +28,7 @@ calcRelaxationF( const Eigen::Matrix<double, M, M>& L,
                  const Eigen::Matrix<double, M, M>& D,
                  const Eigen::Vector<double, M>& f )
 {
-    constexpr double k_w = k_relaxation_param_optimal;
+    constexpr double k_w = k_relaxation_param;
     return k_w * (D + k_w * L).inverse() * f;
 } // calcRelaxationF
 
