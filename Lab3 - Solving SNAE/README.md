@@ -8,8 +8,8 @@ The task is consist of 2 parts:
 2 * x^2 - 5 * x - 3 = 0;
 
 ##### SNAE
-sin(x) - y = 1.32;
-cos(y) - x - 0.85;
+sin(x) - y = 1.32; <br>
+cos(y) - x = 0.85;
 
 ### Result
 ##### Newton's and iterative methods
@@ -33,7 +33,7 @@ make -C build -j4
 ```
 
 ## Running
-- Print roots of the given SNAE:
+- Print roots of the given NAE and SNAE:
 ```sh
 ./build/lab3
 ```
