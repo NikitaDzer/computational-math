@@ -4,20 +4,20 @@ The task is consist of 2 parts:
 * get acquainted with the methods for [solving SNAE (lecture 4)](http://books.mipt.ru/book/301568/vychislitelnaja-matematika-kurs-lektsij.pdf?h=)
 * find roots with the given accuracy 
 
-##### NAE
+#### NAE
 2 * x^2 - 5 * x - 3 = 0;
 
-##### SNAE
+#### SNAE
 sin(x) - y = 1.32; <br>
 cos(y) - x = -0.85;
 
 ### Results
-##### NAE
-Roots: x = -3.
+#### NAE
+Root: x = -3.
 ![Plot for nae's iterative methods.](./assets/NAE.svg)
 
-##### SNAE
-Roots: x = 1.791, y = -0.344.
+#### SNAE
+Root: x = 1.791, y = -0.344.
 ![Plot for snae's iterative methods.](./assets/SNAE.svg)
 
 ### Conclusion
