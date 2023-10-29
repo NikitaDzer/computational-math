@@ -9,7 +9,7 @@ namespace snae
 namespace detail
 {
 
-template <int M>
+template<int M>
 Eigen::Matrix<double, M, M>
 calcJacobiMatrix( FunctionsMatrix<M>& J,
                   const Eigen::Vector<double, M>& x )
@@ -29,7 +29,7 @@ calcJacobiMatrix( FunctionsMatrix<M>& J,
 
 } // namespace detail
 
-template <int M>
+template<int M>
 Eigen::Vector<double, M>
 solveNewton( FunctionsVector<M>& F,
              FunctionsMatrix<M>& J,
@@ -53,7 +53,7 @@ solveNewton( FunctionsVector<M>& F,
     return x;
 } // solveNewton
 
-template <int M>
+template<int M>
 Eigen::Vector<double, M>
 solveNewton( FunctionsVector<M>& F,
              FunctionsMatrix<M>& J,

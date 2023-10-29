@@ -11,14 +11,18 @@ The task is consist of 2 parts:
 sin(x) - y = 1.32; <br>
 cos(y) - x = -0.85;
 
-### Result
-##### Newton's and iterative methods
-Both methods numerically converge for the given NAE and SNAE.
+### Results
+##### NAE
+![Plot for nae's iterative methods.](./assets/NAE.svg)
+
+##### SNAE
+![Plot for snae's iterative methods.](./assets/SNAE.svg)
+
+### Conclusion
+As we can see from plots, SMI and Newton's methods numerically converge for the given NAE and SNAE. Also graphs are logarithmic, which corresponds to the [contraction mapping](https://en.wikipedia.org/wiki/Contraction_mapping).
 
 ## Prerequisites
-
 - C++20 capable compiler
-
 
 ## Installation
 - Clone the repository:
@@ -33,7 +37,7 @@ make -C build -j4
 ```
 
 ## Running
-- Print roots of the given NAE and SNAE:
+- Generate plots and print roots of the given NAE and SNAE:
 ```sh
 ./build/lab3
 ```

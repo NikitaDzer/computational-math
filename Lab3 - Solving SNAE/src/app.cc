@@ -1,91 +1,117 @@
+#include "app.hh"
+#include "plot.hh"
 #include "snae.hh"
-#include "smi.hh"
-#include "newton.hh"
+#include "utils.hh"
 
 #include <Eigen/Dense>
 
 #include <cmath>
+#include <tuple>
+#include <vector>
+#include <format>
 #include <utility>
 
 namespace app
 {
 
-std::pair< Eigen::Vector<double, 1>, Eigen::Vector<double, 1> >
-solvePreparedNAE()
+void
+initIDPlot( visual::GNUPlot& plot,
+            std::string image_dir,
+            std::string plot_name )
 {
-    Eigen::Vector<double, 1> x0{ 0 };
+    std::string title = std::format(
+        "Delta on iterations number of {} iterative methods.",
+        plot_name
+    );
 
-    snae::FunctionsVector<1> F{};
-    F[ 0 ] = []( const Eigen::Vector<double, 1>& x )
+    plot.setTitle( title, 20);
+    plot.setOutputFile( 
+        image_dir + plot_name,
+        "svg", 800, 600 
+    );
+
+    plot.setGrid();
+    plot.setLogY();
+
+    plot.setMTicsX( 1 );
+    plot.setMTicsY( 1 );
+
+    plot.setExpFormatY();
+
+    plot.setAutoscale();
+
+    plot.setLabelX( "iterations number" );
+    plot.setLabelY( "delta" );
+
+    plot.withLinesPoints();
+} // initIDPlot
+
+std::tuple< FNAE, FNAE, JNAE >
+getPreparedNAE()
+{
+    FNAE F_smi{};
+    F_smi[ 0 ] = []( const Eigen::Vector<double, 1>& x )
     {
         return -std::sqrt( 0.5 * (3 - 5 * x[ 0 ]) );
     };
 
-    Eigen::Vector<double, 1> root_smi = snae::solveSMI<1>( F, x0, 10e-4 );
-
-    F[ 0 ] = []( const Eigen::Vector<double, 1>& x )
+    FNAE F_newton{};
+    F_newton[ 0 ] = []( const Eigen::Vector<double, 1>& x )
     {
         return 2 * x[ 0 ] * x[ 0 ] + 5 * x[ 0 ] - 3;
     };
 
-    snae::FunctionsMatrix<1> J{};
-    J[ 0 ][ 0 ] = []( const Eigen::Vector<double, 1>& x )
+    JNAE J_newton{};
+    J_newton[ 0 ][ 0 ] = []( const Eigen::Vector<double, 1>& x )
     {
         return 4 * x[ 0 ] - 5;
     };
 
-    Eigen::Vector<double, 1> root_newton = snae::solveNewton<1>( F, J, x0, 10e-4 );
+    return { F_smi, F_newton, J_newton };
+} // getPreparedNAE
 
-    return { root_smi, root_newton };
-} // solvePreparedNAE
-
-std::pair< Eigen::Vector<double, 2>, Eigen::Vector<double, 2> >
-solvePreparedSNAE()
+std::tuple< FSNAE, FSNAE, JSNAE >
+getPreparedSNAE()
 {
-    Eigen::Vector<double, 2> x0{ 2.0, -1.0 };
-
-    snae::FunctionsVector<2> F{};
-    F[ 0 ] = []( const Eigen::Vector<double, 2>& x )
+    FSNAE F_smi{};
+    F_smi[ 0 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return std::cos( x[ 1 ] ) + 0.85;
     };
-    F[ 1 ] = []( const Eigen::Vector<double, 2>& x )
+    F_smi[ 1 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return std::sin( x[ 0 ] ) - 1.32;
     };
 
-    Eigen::Vector<double, 2> root_smi = snae::solveSMI<2>( F, x0, 10e-6 );
-
-    F[ 0 ] = []( const Eigen::Vector<double, 2>& x )
+    FSNAE F_newton{};
+    F_newton[ 0 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return std::cos( x[ 1 ] ) - x[ 0 ] + 0.85;
     };
-    F[ 1 ] = []( const Eigen::Vector<double, 2>& x )
+    F_newton[ 1 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return std::sin( x[ 0 ] ) - x[ 1 ] - 1.32;
     };
 
-    snae::FunctionsMatrix<2> J{};
-    J[ 0 ][ 0 ] = []( const Eigen::Vector<double, 2>& x )
+    JSNAE J_newton{};
+    J_newton[ 0 ][ 0 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return -1;
     };
-    J[ 0 ][ 1 ] = []( const Eigen::Vector<double, 2>& x )
+    J_newton[ 0 ][ 1 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return -std::sin( x[ 1 ] );
     };
-    J[ 1 ][ 0 ] = []( const Eigen::Vector<double, 2>& x )
+    J_newton[ 1 ][ 0 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return std::cos( x[ 0 ] );
     };
-    J[ 1 ][ 1 ] = []( const Eigen::Vector<double, 2>& x )
+    J_newton[ 1 ][ 1 ] = []( const Eigen::Vector<double, 2>& x )
     {
         return -1;
     };
 
-    Eigen::Vector<double, 2> root_newton = snae::solveNewton<2>( F, J, x0, 10e-6 );
-
-    return { root_smi, root_newton };
-} // solvePreparedSNAE
+    return { F_smi, F_newton, J_newton };
+} // getPreparedSNAE
 
 } // namespace app

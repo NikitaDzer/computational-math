@@ -6,7 +6,7 @@
 namespace snae
 {
 
-template <int M>
+template<int M>
 Eigen::Vector<double, M>
 solveSMI( FunctionsVector<M>& F,
           const Eigen::Vector<double, M>& x0,
@@ -22,7 +22,7 @@ solveSMI( FunctionsVector<M>& F,
     return x;
 } // solveSMI
 
-template <int M>
+template<int M>
 Eigen::Vector<double, M>
 solveSMI( FunctionsVector<M>& F,
           const Eigen::Vector<double, M>& x0,
