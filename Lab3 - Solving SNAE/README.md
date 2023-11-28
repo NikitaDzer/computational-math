@@ -13,11 +13,11 @@ cos(y) - x = -0.85;
 
 ### Results
 #### NAE
-Root: x = -3.
+Root: x = -3. <br>
 ![Plot for nae's iterative methods.](./assets/NAE.svg)
 
 #### SNAE
-Root: x = 1.791, y = -0.344.
+Root: x = 1.791, y = -0.344. <br>
 ![Plot for snae's iterative methods.](./assets/SNAE.svg)
 
 ### Conclusion
