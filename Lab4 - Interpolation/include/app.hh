@@ -3,6 +3,7 @@
 #include "plot.hh"
 #include "interp.hh"
 
+#include <span>
 #include <string>
 #include <vector>
 #include <utility>
@@ -25,6 +26,8 @@ initPopulationPlot( visual::GNUPlot& plot,
  */
 void
 drawPopulationPlot( interp::Interpolant interpolant,
+                    std::span<const double> f,
+                    std::span<const double> x,
                     double year_start,
                     double year_end,
                     unsigned points_count,

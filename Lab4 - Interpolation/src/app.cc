@@ -34,12 +34,23 @@ runPolulationCalculation( interp::Interpolant interpolant,
 
 void
 drawPopulationPlot( interp::Interpolant interpolant,
+                    std::span<const double> f,
+                    std::span<const double> x,
                     double year_start,
                     double year_end,
                     unsigned points_count,
                     visual::GNUPlot& plot,
                     std::string_view method_name)
 {
+    std::vector<visual::GNUPlot::Point> initial{};
+
+    for ( unsigned i = 0; i < f.size(); i++ )
+    {
+        initial.push_back( {x[i], f[i]});
+    }
+
+    plot.drawPlot( initial, "initial");
+
     std::vector<visual::GNUPlot::Point> results = runPolulationCalculation(
         interpolant, year_start, year_end, points_count
     );

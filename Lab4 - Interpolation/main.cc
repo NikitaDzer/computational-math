@@ -14,6 +14,8 @@ namespace
 void
 runInterpolation( interp::Interpolant interpolant,
                   std::string method_name,
+                  std::span<const double> f,
+                  std::span<const double> x,
                   double year_x)
 {
     const double k_year_start = 1900;
@@ -27,6 +29,7 @@ runInterpolation( interp::Interpolant interpolant,
     app::initPopulationPlot( plot, k_dir, method_name); 
     app::drawPopulationPlot(
         interpolant,
+        f, x,
         k_year_start, k_year_end, k_points_num,
         plot, method_name
     );
@@ -59,9 +62,9 @@ main( const int argc, const char *argv[])
     interp::Interpolant newton = 
         interp::makeInterpolantNewton( population, years, years.size() - 2);
 
-    runInterpolation( lsm, "lsm", year_x);
-    runInterpolation( spline, "spline", year_x);
-    runInterpolation( newton, "newton", year_x);
+    runInterpolation( lsm, "lsm", population, years, year_x);
+    runInterpolation( spline, "spline", population, years, year_x);
+    runInterpolation( newton, "newton", population, years, year_x);
 
     std::cout << "Lsm error: " 
               << interp::calcInterpolantErrorLsm( lsm, population, years) 
