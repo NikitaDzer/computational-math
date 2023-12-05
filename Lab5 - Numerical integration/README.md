@@ -4,13 +4,13 @@ The task is to numerically integrate a tabulated function and a fast oscillating
 
 ### Results
 #### Interpolated f(x) and f(x)sin(kx)
-![Plot for the cubic spline.](./assets/splines.svg)
+![Plot for the cubic spline.](./assets/spline.svg)
 
 ### Conclusion
-As we can see from the plot, to correctly calculate the integral, a small step is needed (<0.01). 
-Calculated integrals:
-* VII 9.5a:  1.60314 (step = 0.25)
-* VII 9.13d: 7.3074e-10 (step = 1.0e-10)
+As we can see from the plot, to calculate the integral of the fast oscillating function, a small step (<0.01) is needed. <br>
+The values of the integrals:
+* [VII 9.5a](https://mipt.ru/education/chair/computational_mathematics/study/materials/compmath/other/Aristova_Zavyalova_Lobanov_2014.pdf):  I = 1.60314, step = 0.25
+* [VII 9.13d](https://mipt.ru/education/chair/computational_mathematics/study/materials/compmath/other/Aristova_Zavyalova_Lobanov_2014.pdf): I = 7.3074e-10, step = 1.0e-10
 
 
 ## Prerequisites

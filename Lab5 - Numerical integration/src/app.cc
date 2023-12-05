@@ -58,7 +58,7 @@ initInterpolantPlot( visual::GNUPlot& plot,
                      std::string plot_name)
 {
     std::string title = std::format(
-        "The graph of the {}.",
+        "Tabulated function interpolated by the {} method.",
         plot_name
     );
 
@@ -76,7 +76,7 @@ initInterpolantPlot( visual::GNUPlot& plot,
     plot.setAutoscale();
 
     plot.setLabelX( "x");
-    plot.setLabelY( "f(x)");
+    plot.setLabelY( "y");
 
     plot.withLines();
 } // initInterpolantPlot

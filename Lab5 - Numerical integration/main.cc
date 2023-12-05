@@ -24,7 +24,7 @@ main()
     
     visual::GNUPlot plot{};
 
-    app::initInterpolantPlot( plot, k_dir, "splines");
+    app::initInterpolantPlot( plot, k_dir, "spline");
     app::drawInterpolantPlot(
         spline, x.front(), x.back(), plot, "f(x)"
     );
