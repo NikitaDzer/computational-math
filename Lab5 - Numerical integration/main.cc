@@ -12,32 +12,33 @@ int
 main()
 {
     const std::string k_dir = "assets/";
+    const double k_h1 = 1.0e-10;
 
-    auto [ f1, h1 ] = app::createTabulatedFunctionData();
-    auto [ f2, x ] = app::createInterpolantData();
+    auto [ f1, x ] = app::createInterpolantData();
+    auto [ f2, h2 ] = app::createTabulatedFunctionData();
 
-    interp::Interpolant spline = interp::makeInterpolantSpline( f2, x);
-    interp::Interpolant osc_spline = [&spline]( double xi) {
-        return spline( xi) * std::sin( 30 * xi);
+    interp::Interpolant spline = interp::makeInterpolantSpline( f1, x);
+    interp::Interpolant osc_spline = [spline]( double xi) {
+        return spline( xi) * std::sin( 30.0 * xi);
     };
     
     visual::GNUPlot plot{};
 
     app::initInterpolantPlot( plot, k_dir, "splines");
     app::drawInterpolantPlot(
-        spline, x.front(), x.back(), plot, "tabulated function"
+        spline, x.front(), x.back(), plot, "f(x)"
     );
     app::drawInterpolantPlot(
-        osc_spline, x.front(), x.back(), plot, "oscillating function"
+        osc_spline, x.front(), x.back(), plot, "f(x)sin(30x)"
     );
     plot.makePlot();
 
     std::cout << "VII 9.5a. Integral: " 
-              << integr::calcIntegralTrapezoid( f1, h1) 
+              << integr::calcIntegralTrapezoid( f2, h2) 
               << "\n";
 
     std::cout << "VII 9.13d. Integral: " 
-              << integr::calcIntegralTrapezoid( f2, 0.01)
+              << integr::calcIntegralTrapezoid( f1, k_h1)
               << "\n";
 
     return 0;

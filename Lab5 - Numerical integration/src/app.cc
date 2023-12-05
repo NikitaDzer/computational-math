@@ -43,7 +43,7 @@ drawInterpolantPlot( interp::Interpolant interpolant,
                      visual::GNUPlot& plot,
                      std::string_view method_name)
 {
-    unsigned points_count = 20;
+    unsigned points_count = 300;
 
     std::vector<visual::GNUPlot::Point> results = runInterpolantCalculation(
         interpolant, begin, end, points_count
@@ -78,7 +78,7 @@ initInterpolantPlot( visual::GNUPlot& plot,
     plot.setLabelX( "x");
     plot.setLabelY( "f(x)");
 
-    plot.withLinesPoints();
+    plot.withLines();
 } // initInterpolantPlot
 
 std::pair< std::vector<double>, double>
