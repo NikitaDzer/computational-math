@@ -14,7 +14,7 @@ add_library(visual ${VISUAL_SOURCES})
 target_include_directories(visual PUBLIC include)
 target_compile_features(visual PUBLIC cxx_std_20)
 
-set(LAB5_SOURCES main.cc src/trapezoid.cc src/app.cc src/spline.cc src/newton.cc)
+set(LAB5_SOURCES main.cc src/integral.cc src/app.cc src/spline.cc src/newton.cc)
 add_executable(lab5 ${LAB5_SOURCES})
 target_compile_features(lab5 PUBLIC cxx_std_20)
 target_include_directories(lab5 PUBLIC include)

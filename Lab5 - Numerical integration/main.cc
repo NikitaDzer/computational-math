@@ -2,11 +2,41 @@
 #include "plot.hh"
 #include "interp.hh"
 #include "spline.hh"
-#include "trapezoid.hh"
+#include "integral.hh"
 
 #include <cmath>
 #include <string>
+#include <format>
 #include <iostream>
+
+namespace
+{
+
+void
+runIntegration( std::span<const double> f,
+                double h,
+                std::string_view description)
+{
+    double trapezoid = integr::calcIntegralTrapezoid( f, h);
+    double simpson = integr::calcIntegralSimpson( f, h);
+    double richardson = integr::calcIntegralRichardson( 
+        f, h, integr::calcIntegralTrapezoid, 2
+    );
+    double delta = std::abs( richardson - simpson);
+
+    std::string format = std::format(
+        "{} Integral:           \n"
+        "\t trapezoid:  {}      \n"
+        "\t simpson:    {}      \n"
+        "\t richardson: {}      \n"
+        "\t delta:      {}      \n",
+        description, trapezoid, simpson, richardson, delta
+    );
+
+    std::cout << format;
+} // runIntegration
+
+} // namespace anonymous
 
 int 
 main()
@@ -33,13 +63,8 @@ main()
     );
     plot.makePlot();
 
-    std::cout << "VII 9.5a. Integral: " 
-              << integr::calcIntegralTrapezoid( f2, h2) 
-              << "\n";
-
-    std::cout << "VII 9.13d. Integral: " 
-              << integr::calcIntegralTrapezoid( f1, k_h1)
-              << "\n";
+    runIntegration( f2, h2, "VII 9.5a.");
+    runIntegration( f1, k_h1, "VII 9.13d.");
 
     return 0;
 } // main
